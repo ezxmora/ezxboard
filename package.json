@@ -68,6 +68,13 @@
 				"nsis",
 				"portable"
 			]
-		}
+		},
+		"publish": [
+			{
+				"provider": "github",
+				"owner": "ezxmora",
+				"repo": "ezxboard"
+			}
+		]
 	}
 }
