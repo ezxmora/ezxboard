@@ -1,0 +1,34 @@
+@import url('./roboto.css');
+
+:root {
+	--titlebar-height: 24px;
+	--frame-control-height: var(--titlebar-height);
+	--frame-control-width: 28px;
+	--titlebar-color: #181818;
+	--main-bg-color: var(--titlebar-color);
+	--main-color: #e7e7e7;
+	--main-color-filter: invert(100%) sepia(53%) saturate(398%) hue-rotate(191deg) brightness(116%) contrast(81%);
+	--context-menu-color: #202020;
+	--context-menu-color-hover: #666;
+	--soundcontrol-height: 40px;
+}
+
+body,
+#main,
+.main-container {
+	font-family: 'Roboto';
+	height: 100%;
+	width: 100%;
+	background-color: var(--main-bg-color);
+	user-select: none;
+}
+
+hr {
+	background-color: var(--main-color);
+}
+
+.main-container {
+	box-sizing: border-box;
+	margin-top: var(--titlebar-height);
+	padding: 2%;
+}

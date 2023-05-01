@@ -1,0 +1,30 @@
+.sound-button {
+	display: inline-flex;
+	flex-direction: column;
+	cursor: pointer;
+	text-align: center;
+	flex-grow: 2;
+	padding: 8px;
+	margin: 5px;
+	outline: 0;
+	border: 1px solid var(--main-color);
+	border-radius: 5px;
+	color: var(--main-color);
+}
+
+.sound-button:hover {
+	background: var(--main-color);
+	color: var(--main-bg-color);
+}
+
+.sound-button-name {
+	font-weight: bold;
+	font-size: 23px;
+	align-items: center;
+}
+
+.sound-button-shortcut {
+	font-weight: lighter;
+	font-size: 12px;
+	align-items: center;
+}

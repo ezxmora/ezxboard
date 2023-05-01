@@ -1,0 +1,25 @@
+.addSound-control {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	gap: 10px auto;
+	color: var(--main-color);
+	height: var(--soundcontrol-height);
+	width: 40px;
+	border: 0;
+	background: none;
+}
+
+.add-control-label {
+	font-weight: bold;
+}
+
+.add-button-img {
+	cursor: pointer;
+	width: 25px;
+	filter: var(--main-color-filter);
+}
+
+.add-button-img:hover {
+	filter: invert(85%) sepia(48%) saturate(209%) hue-rotate(107deg) brightness(95%) contrast(91%);
+}

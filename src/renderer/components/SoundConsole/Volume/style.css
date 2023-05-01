@@ -1,0 +1,31 @@
+.volume-control {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	gap: 10px 0;
+	height: var(--soundcontrol-height);
+	max-height: var(--soundcontrol-height);
+}
+
+.volume-label {
+	color: var(--main-color);
+	font-weight: bold;
+}
+
+.volume-slider {
+	appearance: none;
+	height: 5px;
+	width: 180px;
+	background: var(--main-bg-color);
+	border: 1px solid var(--main-color);
+}
+
+.volume-slider::-webkit-slider-thumb {
+	appearance: none;
+	border-radius: 100%;
+	background-color: var(--main-bg-color);
+	border: 3px solid var(--main-color);
+	height: 18px;
+	width: 18px;
+	cursor: grab;
+}

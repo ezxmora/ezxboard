@@ -1,0 +1,76 @@
+.modal-wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 100;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+}
+
+.modal-background {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 90;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.4);
+}
+
+.modal-window {
+	z-index: 100;
+	border: 2px solid var(--main-color);
+	background: var(--main-bg-color);
+	padding: 6vh;
+	width: 35%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.modal-title {
+	text-align: center;
+	color: var(--main-color);
+	font-size: 4vh;
+	margin-bottom: 5%;
+}
+
+.modal-window input[type='text'] {
+	outline: none;
+	border: 1px solid var(--main-color);
+	background: transparent;
+	color: var(--main-color);
+	padding: 2vh;
+	margin-top: 1.5vh;
+	height: 3.5vh;
+	width: 100%;
+}
+
+.modal-window input[type='text']:focus {
+	border: 1px solid var(--context-menu-color-hover);
+}
+
+.modal-window .modal-buttons {
+	margin-top: 3vh;
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
+}
+
+.modal-buttons .mdl-btn {
+	outline: none;
+	background: transparent;
+	color: var(--main-color);
+	padding: 1.5vh;
+	width: 18vw;
+	cursor: pointer;
+	border: 1px solid var(--main-color);
+}
+
+.modal-buttons .mdl-btn:hover {
+	border: 1px solid var(--context-menu-color-hover);
+}

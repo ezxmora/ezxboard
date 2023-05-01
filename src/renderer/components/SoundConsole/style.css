@@ -1,0 +1,7 @@
+.sound-console {
+	font-size: 15px;
+	display: flex;
+	gap: 15px;
+	justify-content: center;
+	padding: 5px;
+}

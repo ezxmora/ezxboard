@@ -1,0 +1,27 @@
+name: Build
+
+on:
+    push:
+        branches:
+            - main
+        paths-ignore:
+            - README.md
+
+jobs:
+    build:
+        runs-on: windows-latest
+        steps:
+            - name: Checkout git repo
+              uses: actions/checkout@main
+            - name: Install Node & Yarn
+              uses: actions/setup-node@main
+            - name: Install dependencies
+              run: yarn install
+            - name: Build packages
+              run: yarn dist
+            - name: Publish
+              env:
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: yarn publish
+            - name: Hash
+              run: type .\dist\latest.yml
