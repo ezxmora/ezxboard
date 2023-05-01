@@ -1,6 +1,8 @@
-
 <p align="center">
   <img src="./build/repo-banner.png"/>
+</p>
+
+<p align="center">
   <img alt="License" src="https://img.shields.io/github/license/ezxmora/ezxboard?style=flat-square">
   <img alt="Language" src="https://img.shields.io/badge/Language-Node.js-red?style=flat-square&logo=node.js">
   <a href="https://github.com/ezxmora/ezxboard/commits/main"><img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/ezxmora/ezxboard?style=flat-square"></a>
