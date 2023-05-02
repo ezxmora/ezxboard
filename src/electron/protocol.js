@@ -1,7 +1,7 @@
 // https://github.com/reZach/secure-electron-template/blob/master/app/electron/protocol.js
 const fs = require('fs');
 const path = require('path');
-const DIST_PATH = path.join(__dirname, '../../dist');
+const DIST_PATH = path.join(__dirname, '../../dist/renderer');
 const scheme = 'ezxboard';
 
 const mimeTypes = {

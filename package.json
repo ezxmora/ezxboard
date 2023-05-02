@@ -1,6 +1,6 @@
 {
 	"name": "ezxboard",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"private": "true",
 	"description": "Customizable and expandable Electron and React soundboard",
 	"main": "src/electron/main.js",
@@ -13,7 +13,7 @@
 		"lint": "yarn run prettier --write .",
 		"clean:win": "node -e \"if (process.platform === 'win32') process.exit(1)\" || , if exist dist rmdir /Q /S dist",
 		"clean:lin": "node -e \"if (process.platform !== 'win32') process.exit(1)\" || rm -rf dist",
-		"dist": "yarn run clean && yarn run build:renderer && electron-builder",
+		"package": "yarn run clean && yarn run build:renderer && electron-builder",
 		"publish": "yarn run electron-builder --publish always",
 		"dev": "concurrently \"yarn run dev:renderer\" \"yarn run dev:electron\""
 	},
