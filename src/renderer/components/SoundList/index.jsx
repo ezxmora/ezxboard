@@ -14,7 +14,7 @@ const SoundList = () => {
 
 	const renderButtons = () => {
 		if (sounds.length === 0) {
-			return <div className="empty-sounds">You didn't add any sounds yet, why don't you add some? :^)</div>;
+			return <div className="empty-sounds">You didn't add any sounds yet, why don't you add some?</div>;
 		}
 
 		return sounds.map(({ key, shortcut }, i) => <SoundButton name={key} shortcut={shortcut} key={i} />);

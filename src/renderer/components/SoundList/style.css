@@ -1,10 +1,10 @@
 .sound-list {
-	display: inline-flex;
+	display: flex;
 	flex-wrap: wrap;
 	gap: 2.5px;
 }
 
 .empty-sounds {
-	display: block;
+	margin: 20px auto;
 	color: var(--main-color);
 }
