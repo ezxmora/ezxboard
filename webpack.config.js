@@ -30,7 +30,7 @@ module.exports = {
 		},
 		alias: {
 			Components: path.resolve(__dirname, 'src/renderer/components'),
-			Contexts: path.resolve(__dirname, 'src/renderer/context'),
+			Contexts: path.resolve(__dirname, 'src/renderer/contexts'),
 			Hooks: path.resolve(__dirname, 'src/renderer/hooks'),
 			Assets: path.resolve(__dirname, 'src/renderer/assets'),
 			Utils: path.resolve(__dirname, 'src/renderer/utils'),
