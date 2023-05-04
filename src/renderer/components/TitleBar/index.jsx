@@ -2,7 +2,6 @@ import './style.css';
 
 import React from 'react';
 
-// Icons
 import minimize from 'Assets/icons/minimize.svg';
 import maximize from 'Assets/icons/maximize.svg';
 import close from 'Assets/icons/close.svg';

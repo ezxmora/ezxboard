@@ -15,17 +15,23 @@
 .volume-slider {
 	appearance: none;
 	height: 5px;
-	width: 180px;
-	background: var(--main-bg-color);
+	border-radius: 5px;
 	border: 1px solid var(--main-color);
+	background: var(--main-bg-color);
+	outline: none;
 }
 
 .volume-slider::-webkit-slider-thumb {
+	display: none;
+}
+
+.volume-control:hover .volume-slider::-webkit-slider-thumb {
+	display: block;
 	appearance: none;
+	cursor: grab;
 	border-radius: 100%;
 	background-color: var(--main-bg-color);
 	border: 3px solid var(--main-color);
 	height: 18px;
 	width: 18px;
-	cursor: grab;
 }

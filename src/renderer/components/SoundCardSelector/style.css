@@ -1,6 +1,6 @@
 .soundcard-selector {
 	height: var(--soundcontrol-height);
-	width: 250px;
+	width: 100%;
 	background: var(--main-bg-color);
 	color: var(--main-color);
 	border: 2px solid var(--main-color);

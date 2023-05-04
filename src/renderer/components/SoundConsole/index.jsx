@@ -1,19 +1,31 @@
 import React from 'react';
 import './style.css';
 
-// Components
-import AddSound from './AddSound';
-import Stop from './Stop';
-import Volume from './Volume';
-import SoundCardSelector from './SoundCardSelector';
+import SoundControlButton from 'Components/SoundControlButton';
+import VolumeSlider from 'Components/VolumeSlider';
+import addImg from 'Assets/icons/add.svg';
+import stopImg from 'Assets/icons/stop.svg';
+import { usePlayer } from 'Contexts/SoundPlayer';
+import { useModal } from 'Contexts/CModal';
 
 const SoundConsole = () => {
+	const { stopSound } = usePlayer();
+	const { setModalMode, toggleModal } = useModal();
+
+	const stopPlaying = () => {
+		stopSound();
+	};
+
+	const openModal = () => {
+		setModalMode(true);
+		toggleModal();
+	};
+
 	return (
 		<div className="sound-console">
-			<AddSound />
-			<Stop />
-			<Volume />
-			<SoundCardSelector />
+			<SoundControlButton label={'Add'} color={'green'} icon={addImg} action={openModal} />
+			<SoundControlButton label={'Stop'} color={'red'} icon={stopImg} action={stopPlaying} />
+			<VolumeSlider />
 		</div>
 	);
 };

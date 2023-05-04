@@ -1,4 +1,4 @@
-.addSound-control {
+.button-control {
 	display: flex;
 	align-items: center;
 	flex-direction: column;
@@ -10,16 +10,20 @@
 	background: none;
 }
 
-.add-control-label {
+.button-control-label {
 	font-weight: bold;
 }
 
-.add-button-img {
+.button-control-img {
 	cursor: pointer;
 	width: 25px;
 	filter: var(--main-color-filter);
 }
 
-.add-button-img:hover {
+.button-control-img.button-hover-green:hover {
 	filter: invert(85%) sepia(48%) saturate(209%) hue-rotate(107deg) brightness(95%) contrast(91%);
+}
+
+.button-control-img.button-hover-red:hover {
+	filter: invert(48%) sepia(14%) saturate(2241%) hue-rotate(314deg) brightness(109%) contrast(101%);
 }
