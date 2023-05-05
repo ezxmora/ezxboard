@@ -1,12 +1,13 @@
-import './style.css';
-import React, { useState, useRef, useEffect } from 'react';
 import { usePlayer } from 'Contexts/SoundPlayer';
+import { useLocalStorage } from 'Hooks/useLocalStorage';
+import React, { useEffect, useRef, useState } from 'react';
+import './style.css';
 
 const VolumeSlider = () => {
-	const DEFAULT_VOLUME_VALUE = 0.5;
+	const [volumeStorage, setVolumeStorage] = useLocalStorage('slider-volume-value', 0.5);
 	const sliderRef = useRef(null);
 	const { changeVolume } = usePlayer();
-	const [volumeValue, setVolumeValue] = useState(DEFAULT_VOLUME_VALUE);
+	const [volumeValue, setVolumeValue] = useState(volumeStorage);
 
 	const fillSlider = () => {
 		const colorSettings = {
@@ -20,7 +21,6 @@ const VolumeSlider = () => {
 			percentage + 0.1
 		}%)`;
 
-		console.log(percentage, background, sliderRef.current.style.backgroundColor);
 		sliderRef.current.style.background = background;
 	};
 
@@ -32,6 +32,7 @@ const VolumeSlider = () => {
 		const { value } = e.target;
 		fillSlider();
 		setVolumeValue(value);
+		setVolumeStorage(value);
 		changeVolume(value);
 	};
 
@@ -44,7 +45,7 @@ const VolumeSlider = () => {
 				tabIndex="-1"
 				type="range"
 				min={0}
-				defaultValue={DEFAULT_VOLUME_VALUE}
+				defaultValue={volumeStorage}
 				max={1}
 				step={0.01}
 				onChange={handleVolume}

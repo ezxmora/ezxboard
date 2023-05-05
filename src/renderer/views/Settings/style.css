@@ -1,0 +1,61 @@
+.settings-container {
+	display: flex;
+	flex-direction: column;
+	margin: 0 auto;
+	width: 80%;
+}
+
+.settings-close-button {
+	position: absolute;
+	height: 30px;
+	width: 30px;
+	background: none;
+	border: 1px solid var(--main-color);
+	border-radius: 25em;
+}
+
+.settings-close-button .close-image {
+	position: absolute;
+	top: 3px;
+	left: 3px;
+	height: 25px;
+	width: 25px;
+	filter: var(--main-color-filter);
+	transition: filter 0.2s;
+}
+
+.settings-close-button .close-label {
+	position: absolute;
+	font-size: 10px;
+	top: 35px;
+	left: 7px;
+	text-align: center;
+	color: var(--main-color);
+	text-decoration: none;
+}
+
+.settings-close-button .close-image:hover {
+	filter: invert(59%) sepia(34%) saturate(0%) hue-rotate(236deg) brightness(83%) contrast(87%);
+}
+
+.settings-title {
+	display: block;
+	text-align: center;
+	width: 100%;
+	font-size: 30px;
+	font-weight: bold;
+	color: var(--main-color);
+	margin-bottom: 0.8em;
+}
+
+.settings-soundcard {
+	display: flex;
+	flex-direction: row;
+}
+
+.settings-soundcard > .settings-label {
+	white-space: nowrap;
+	line-height: 2.5em;
+	margin-right: 2em;
+	color: var(--main-color);
+}

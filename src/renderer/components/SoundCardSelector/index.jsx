@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from 'react';
 import { usePlayer } from 'Contexts/SoundPlayer';
+import React, { useEffect, useState } from 'react';
 
+import { useLocalStorage } from 'Hooks/useLocalStorage';
 import './style.css';
 
 const SoundCardSelector = () => {
+	const [defaultSoundcard, setDefaultSoundcard] = useLocalStorage('default-sound-card', false);
 	const [soundCards, setSoundCards] = useState([]);
 	const { getSoundCards, changeSink } = usePlayer();
 
 	const setAudioCard = (e) => {
 		const { value } = e.target;
+		setDefaultSoundcard(value);
 		changeSink(value);
 	};
 
@@ -20,15 +23,14 @@ const SoundCardSelector = () => {
 	}, []);
 
 	return (
-		<select tabIndex="-1" className="soundcard-selector" onChange={setAudioCard}>
-			<option hidden defaultValue>
-				Select Output device
-			</option>
-			{soundCards.map(({ label, deviceId }) => (
-				<option value={deviceId} key={deviceId}>
-					{label}
-				</option>
-			))}
+		<select tabIndex="-1" className="soundcard-selector" onChange={setAudioCard} value={defaultSoundcard}>
+			{soundCards.map(({ label, deviceId }) => {
+				return (
+					<option value={deviceId} key={deviceId}>
+						{label}
+					</option>
+				);
+			})}
 		</select>
 	);
 };
