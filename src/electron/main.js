@@ -3,14 +3,7 @@ const { autoUpdater } = require('electron-updater');
 const path = require('path');
 const { uIOhook, UiohookKey } = require('uiohook-napi');
 const { minimizeWindow, maximizeWindow, closeWindow, getSoundFile } = require('./ipc/controls');
-const {
-	createBufferFromRoute,
-	isAValidSound,
-	createSound,
-	deleteSound,
-	readAllSounds,
-	updateSound,
-} = require('./ipc/sounds');
+const { createBufferFromRoute, isAValidSound, createSound, deleteSound, readAllSounds } = require('./ipc/sounds');
 const Protocol = require('./protocol');
 const Store = require('./store');
 
@@ -19,7 +12,8 @@ process.title = 'ezxboard';
 if (!app.requestSingleInstanceLock()) {
 	app.exit();
 }
-app.disableHardwareAcceleration();
+
+// app.disableHardwareAcceleration();
 
 let mainWindow;
 
@@ -39,6 +33,7 @@ const createWindow = () => {
 			webSecurity: true,
 			nodeIntegration: false,
 			contextIsolation: true,
+			devTools: !app.isPackaged,
 			preload: path.join(__dirname, 'preload.js'),
 		},
 	});
@@ -56,13 +51,12 @@ const createWindow = () => {
 
 	if (process.env.DEV_SERVER_URL) {
 		mainWindow.loadURL(process.env.DEV_SERVER_URL);
-		mainWindow.webContents.openDevTools({ mode: 'detach', activate: false });
 	} else {
 		mainWindow.loadURL(`${Protocol.scheme}://rse/index.html`);
 	}
 };
 
-const store = new Store({ configName: 'sounds' });
+const soundsStore = new Store({ configName: 'sounds' });
 
 protocol.registerSchemesAsPrivileged([
 	{
@@ -80,7 +74,7 @@ app.whenReady().then(() => {
 	uIOhook.start();
 
 	uIOhook.on('keydown', (keyEvent) => {
-		const sounds = store.data;
+		const sounds = soundsStore.data;
 		const { altKey, ctrlKey, shiftKey, keycode } = keyEvent;
 		const auxShortcut = [];
 

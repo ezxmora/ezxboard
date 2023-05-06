@@ -1,34 +1,42 @@
 import React from 'react';
-import { ToastContainer } from 'react-toastify';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import 'Assets/styles/reset.css';
 import 'Assets/styles/index.css';
-import 'react-toastify/dist/ReactToastify.css';
+import 'Assets/styles/reset.css';
+import 'react-toastify/dist/ReactToastify.min.css';
 
-// Contexts
+// Context
 import { SoundPlayer } from 'Contexts/SoundPlayer';
-import { CModal } from 'Contexts/CModal';
 
-// Components
+// Component
 import TitleBar from 'Components/TitleBar';
-import SoundList from 'Components/SoundList';
-import SoundConsole from 'Components/SoundConsole';
-import Modal from 'Components/Modal';
+
+// Views
+import { AnimatePresence } from 'framer-motion';
+import Home from 'Views/Home';
+import Settings from 'Views/Settings';
+
+const router = createBrowserRouter([
+	{
+		path: '/',
+		element: <Home />,
+	},
+	{
+		path: '/settings',
+		element: <Settings />,
+	},
+]);
 
 const Main = () => {
 	return (
 		<>
 			<TitleBar />
 			<main className="main-container">
-				<SoundPlayer>
-					<CModal>
-						<SoundConsole />
-						<hr />
-						<SoundList />
-						<Modal />
-					</CModal>
-					<ToastContainer autoClose="2000" theme="dark" position="bottom-left" />
-				</SoundPlayer>
+				<AnimatePresence mode="sync">
+					<SoundPlayer>
+						<RouterProvider router={router} />
+					</SoundPlayer>
+				</AnimatePresence>
 			</main>
 		</>
 	);

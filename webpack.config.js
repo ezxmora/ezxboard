@@ -21,6 +21,12 @@ module.exports = {
 				test: /\.(png|jpg|gif|svg)$/,
 				type: 'asset/resource',
 			},
+			{
+				test: /\.jsx?$/,
+				include: /node_modules/,
+				enforce: "pre",
+				use: ["source-map-loader"],
+			}
 		],
 	},
 	resolve: {
@@ -34,6 +40,7 @@ module.exports = {
 			Hooks: path.resolve(__dirname, 'src/renderer/hooks'),
 			Assets: path.resolve(__dirname, 'src/renderer/assets'),
 			Utils: path.resolve(__dirname, 'src/renderer/utils'),
+			Views: path.resolve(__dirname, 'src/renderer/views'),
 		},
 	},
 	output: {

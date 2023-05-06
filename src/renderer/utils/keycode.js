@@ -2,14 +2,14 @@
 	https://github.com/SnosMe/awakened-poe-trade/blob/master/ipc/KeyToCode.ts
 */
 export const KeyToCode = {
-	// Cancel: 3,
+	Cancel: 3,
 	Backspace: 8,
 	Tab: 9,
 	Enter: 13,
 	Shift: 16,
 	Ctrl: 17,
 	Alt: 18,
-	// Pause: 19,
+	Pause: 19,
 	CapsLock: 20,
 	Escape: 27,
 	Space: 32,
@@ -132,5 +132,5 @@ export const hotkeyToString = (shortcut, ctrl = false, shift = false, alt = fals
 	else if (ctrl) mod = 'Ctrl';
 	else if (shift) mod = 'Shift';
 
-	return mod && shortcut.length ? `${mod} + ${shortcut.join(' + ')}` : shortcut.join(' + ') || mod;
+	return mod && shortcut.length ? `${mod} + ${shortcut?.join(' + ')}` : shortcut?.join(' + ') || mod;
 };

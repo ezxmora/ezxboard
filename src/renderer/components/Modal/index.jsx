@@ -1,15 +1,16 @@
 import './style.css';
 
-import React, { useState } from 'react';
-import { KeyToCode, hotkeyToString } from 'Utils/keycode';
 import { useModal } from 'Contexts/CModal';
 import { usePlayer } from 'Contexts/SoundPlayer';
+import { KeyToCode, hotkeyToString } from 'Utils/keycode';
+import { motion } from 'framer-motion';
+import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 
 const Modal = () => {
 	const { showModal, toggleModal, modalMode, modalData } = useModal();
 	const { sounds, createBuffer, createSound, deleteSound } = usePlayer();
-	const [sound, setSound] = useState({ key: '', shortcut: '', route: '' });
+	const [sound, setSound] = useState({ key: '', shortcut: [], route: '' });
 
 	const closeModal = (event) => {
 		const { className, id } = event.target;
@@ -20,7 +21,7 @@ const Modal = () => {
 		}
 	};
 
-	const handleKeyPress = (event = event.nativeEvent) => {
+	const handleKeyPress = (event) => {
 		event.preventDefault();
 		event.stopPropagation();
 
@@ -29,19 +30,18 @@ const Modal = () => {
 			return;
 		}
 
-		let auxKeyCode = '';
-		let { code, ctrlKey, shiftKey, altKey } = event.nativeEvent;
+		let { code, ctrlKey, shiftKey, altKey } = event;
 
+		if (!code) return;
+		if (code.includes('Meta')) return;
 		if (code.startsWith('Key')) {
-			auxKeyCode = code.slice('Key'.length);
+			code = code.slice('Key'.length);
 		} else if (code.startsWith('Digit')) {
-			auxKeyCode = code.slice('Digit'.length);
-		} else if (event.key === 'Cancel' && code === 'Pause') {
-			return;
+			code = code.slice('Digit'.length);
 		}
 
-		if (KeyToCode[auxKeyCode]) {
-			setSound({ ...sound, shortcut: hotkeyToString([auxKeyCode], ctrlKey, shiftKey, altKey) });
+		if (KeyToCode[code]) {
+			setSound({ ...sound, shortcut: hotkeyToString([code], ctrlKey, shiftKey, altKey) });
 		}
 	};
 
@@ -76,6 +76,7 @@ const Modal = () => {
 
 			createBuffer(sound);
 			createSound(sound);
+			setSound({ key: '', shortcut: [], route: '' });
 			toggleModal();
 		};
 
@@ -90,7 +91,7 @@ const Modal = () => {
 					id="shortcut-input"
 					readOnly
 					defaultValue={sound.shortcut}
-					onKeyUp={handleKeyPress}
+					onKeyDown={handleKeyPress}
 					onContextMenu={() => setSound({ ...sound, shortcut: '' })}
 				/>
 				<input
@@ -134,11 +135,27 @@ const Modal = () => {
 		);
 	};
 
+	const animation = {
+		initial: {
+			opacity: 0,
+			scale: 0,
+		},
+		animate: {
+			opacity: 1,
+			scale: 1,
+		},
+		transition: {
+			duration: 0.3,
+		},
+	};
+
 	return (
 		showModal && (
 			<div className="modal-wrapper">
 				<div className="modal-background" onClick={closeModal}></div>
-				<div className="modal-window">{modalMode ? addMode() : confirmMode()}</div>
+				<motion.div {...animation} className="modal-window">
+					{modalMode ? addMode() : confirmMode()}
+				</motion.div>
 			</div>
 		)
 	);
