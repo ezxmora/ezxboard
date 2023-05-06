@@ -24,9 +24,9 @@ module.exports = {
 			{
 				test: /\.jsx?$/,
 				include: /node_modules/,
-				enforce: "pre",
-				use: ["source-map-loader"],
-			}
+				enforce: 'pre',
+				use: ['source-map-loader'],
+			},
 		],
 	},
 	resolve: {
