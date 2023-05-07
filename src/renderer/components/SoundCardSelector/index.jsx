@@ -19,6 +19,10 @@ const SoundCardSelector = () => {
 		(async () => {
 			const soundCardsArray = await getSoundCards();
 			setSoundCards(soundCardsArray);
+
+			if (defaultSoundcard) {
+				changeSink(defaultSoundcard);
+			}
 		})();
 	}, []);
 

@@ -7,7 +7,7 @@ import InputShortcut from 'Components/InputShortcut';
 import SoundCardSelector from 'Components/SoundCardSelector';
 import { usePlayer } from 'Contexts/SoundPlayer';
 import { useLocalStorage } from 'Hooks/useLocalStorage';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { toast } from 'react-toastify';
 
 const Settings = () => {
@@ -49,7 +49,7 @@ const Settings = () => {
 	}, []);
 
 	return (
-		<motion.div {...animation}>
+		<m.div {...animation}>
 			<div className="settings-container">
 				<h1 className="settings-title">Settings</h1>
 
@@ -73,7 +73,7 @@ const Settings = () => {
 					</Link>
 				</div>
 			</div>
-		</motion.div>
+		</m.div>
 	);
 };
 export default Settings;
