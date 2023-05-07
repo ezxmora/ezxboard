@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './style.css';
 
@@ -10,9 +10,11 @@ import VolumeSlider from 'Components/VolumeSlider';
 import { useModal } from 'Contexts/CModal';
 import { usePlayer } from 'Contexts/SoundPlayer';
 import { useIPC } from 'Hooks/useIPC';
+import { useLocalStorage } from 'Hooks/useLocalStorage';
 
 const SoundConsole = () => {
-	const { playSound, stopSound } = usePlayer();
+	const [defaultSoundcard] = useLocalStorage('default-sound-card', false);
+	const { playSound, stopSound, changeSink } = usePlayer();
 	const { showModal, setModalMode, toggleModal } = useModal();
 
 	useIPC('global:shortcut', (key) => {
@@ -31,6 +33,12 @@ const SoundConsole = () => {
 		setModalMode(true);
 		toggleModal();
 	};
+
+	useEffect(() => {
+		if (defaultSoundcard) {
+			changeSink(defaultSoundcard);
+		}
+	}, []);
 
 	return (
 		<div className="sound-console">

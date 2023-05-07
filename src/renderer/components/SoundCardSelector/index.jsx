@@ -1,7 +1,7 @@
 import { usePlayer } from 'Contexts/SoundPlayer';
+import { useLocalStorage } from 'Hooks/useLocalStorage';
 import React, { useEffect, useState } from 'react';
 
-import { useLocalStorage } from 'Hooks/useLocalStorage';
 import './style.css';
 
 const SoundCardSelector = () => {
@@ -19,10 +19,6 @@ const SoundCardSelector = () => {
 		(async () => {
 			const soundCardsArray = await getSoundCards();
 			setSoundCards(soundCardsArray);
-
-			if (defaultSoundcard) {
-				changeSink(defaultSoundcard);
-			}
 		})();
 	}, []);
 
