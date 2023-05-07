@@ -33,3 +33,17 @@ hr {
 	margin-top: var(--titlebar-height);
 	padding: 2%;
 }
+
+.default-input {
+	outline: none;
+	border: 2px solid var(--main-color);
+	background: transparent;
+	color: var(--main-color);
+	padding: 2vh;
+	height: 3.5vh;
+	width: 100%;
+}
+
+.default-input:focus {
+	border: 2px solid var(--context-menu-color-hover);
+}

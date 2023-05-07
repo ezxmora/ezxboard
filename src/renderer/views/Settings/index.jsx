@@ -1,13 +1,20 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './style.css';
 
 import closeButton from 'Assets/icons/close.svg';
+import InputShortcut from 'Components/InputShortcut';
 import SoundCardSelector from 'Components/SoundCardSelector';
+import { usePlayer } from 'Contexts/SoundPlayer';
+import { useLocalStorage } from 'Hooks/useLocalStorage';
 import { motion } from 'framer-motion';
+import { toast } from 'react-toastify';
 
 const Settings = () => {
 	const navigate = useNavigate();
+	const shortcutReference = useRef(null);
+	const [shortcutValue, setShortcutValue] = useLocalStorage('stop-shortcut', '');
+	const { soundExists } = usePlayer();
 
 	const animation = {
 		initial: {
@@ -21,10 +28,18 @@ const Settings = () => {
 		},
 	};
 
-	const handleExit = (e) => {
-		if (e.key === 'Escape') {
+	const handleExit = (event) => {
+		if (event.key === 'Escape') {
 			navigate('/');
 		}
+	};
+
+	const handleStopShortcut = () => {
+		if (soundExists('stop-shortcut', shortcutReference.current.value)) {
+			toast.error('That shortcut is already in use');
+			return;
+		}
+		setShortcutValue(shortcutReference.current.value);
 	};
 
 	useEffect(() => {
@@ -38,9 +53,17 @@ const Settings = () => {
 			<div className="settings-container">
 				<h1 className="settings-title">Settings</h1>
 
-				<div className="settings-soundcard">
+				<div className="settings-section">
 					<span className="settings-label">Sound cards:</span>
 					<SoundCardSelector />
+				</div>
+
+				<div className="settings-section">
+					<span className="settings-label">Stop sound shortcut:</span>
+					<InputShortcut ref={shortcutReference} value={shortcutValue} />
+					<button className="stop-shortcut-set" onClick={handleStopShortcut}>
+						Set
+					</button>
 				</div>
 
 				<div className="settings-close-button">

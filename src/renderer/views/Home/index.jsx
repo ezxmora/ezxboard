@@ -1,5 +1,4 @@
 import React from 'react';
-import { ToastContainer } from 'react-toastify';
 
 // Contexts
 import Modal from 'Components/Modal';
@@ -16,7 +15,6 @@ const Home = () => {
 				<SoundList />
 				<Modal />
 			</CModal>
-			<ToastContainer autoClose="2000" theme="dark" position="bottom-left" />
 		</>
 	);
 };

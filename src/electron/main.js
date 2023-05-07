@@ -1,11 +1,11 @@
 const { app, BrowserWindow, ipcMain, protocol } = require('electron');
 const { autoUpdater } = require('electron-updater');
 const path = require('path');
-const { uIOhook, UiohookKey } = require('uiohook-napi');
+const { uIOhook } = require('uiohook-napi');
 const { minimizeWindow, maximizeWindow, closeWindow, getSoundFile } = require('./ipc/controls');
 const { createBufferFromRoute, isAValidSound, createSound, deleteSound, readAllSounds } = require('./ipc/sounds');
 const Protocol = require('./protocol');
-const Store = require('./store');
+const { parseShortcut } = require('./ipc/shortcuts');
 
 process.title = 'ezxboard';
 
@@ -56,8 +56,6 @@ const createWindow = () => {
 	}
 };
 
-const soundsStore = new Store({ configName: 'sounds' });
-
 protocol.registerSchemesAsPrivileged([
 	{
 		scheme: Protocol.scheme,
@@ -74,19 +72,7 @@ app.whenReady().then(() => {
 	uIOhook.start();
 
 	uIOhook.on('keydown', (keyEvent) => {
-		const sounds = soundsStore.data;
-		const { altKey, ctrlKey, shiftKey, keycode } = keyEvent;
-		const auxShortcut = [];
-
-		if (altKey) auxShortcut.push('Alt');
-		if (ctrlKey) auxShortcut.push('Ctrl');
-		if (shiftKey) auxShortcut.push('Shift');
-		if (keycode) auxShortcut.push(Object.keys(UiohookKey).find((k) => UiohookKey[k] === keycode));
-
-		const shortcutExists = sounds.find(({ shortcut }) => shortcut === auxShortcut.join(' + '));
-		if (shortcutExists) {
-			mainWindow.webContents.send('global:shortcut', shortcutExists.key);
-		}
+		parseShortcut(keyEvent, mainWindow);
 	});
 });
 

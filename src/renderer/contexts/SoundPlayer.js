@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
 import path from 'path-browserify';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
 const audioContext = new AudioContext();
 const gainNode = audioContext.createGain();
@@ -31,6 +31,8 @@ export const SoundPlayer = ({ children }) => {
 
 		return soundsArray;
 	};
+
+	const soundExists = (key, value) => sounds.find((sound) => sound[key] == value);
 
 	const createSound = async ({ key, shortcut, route }) => {
 		const parsedPath = path.parse(route).base;
@@ -116,6 +118,7 @@ export const SoundPlayer = ({ children }) => {
 			value={{
 				sounds,
 				createSound,
+				soundExists,
 				deleteSound,
 				createBuffer,
 				playSound,

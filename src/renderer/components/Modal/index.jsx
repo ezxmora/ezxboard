@@ -1,47 +1,24 @@
 import './style.css';
 
+import InputShortcut from 'Components/InputShortcut';
 import { useModal } from 'Contexts/CModal';
 import { usePlayer } from 'Contexts/SoundPlayer';
-import { KeyToCode, hotkeyToString } from 'Utils/keycode';
 import { motion } from 'framer-motion';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 
 const Modal = () => {
 	const { showModal, toggleModal, modalMode, modalData } = useModal();
-	const { sounds, createBuffer, createSound, deleteSound } = usePlayer();
-	const [sound, setSound] = useState({ key: '', shortcut: [], route: '' });
+	const { soundExists, createBuffer, createSound, deleteSound } = usePlayer();
+	const [sound, setSound] = useState({ key: '', route: '' });
+	const shortcutReference = useRef(null);
 
 	const closeModal = (event) => {
 		const { className, id } = event.target;
 
 		if (className === 'modal-background' || id === 'close-modal') {
-			setSound({ key: '', shortcut: '', route: '' });
+			setSound({ key: '', shortcut: [], route: '' });
 			toggleModal();
-		}
-	};
-
-	const handleKeyPress = (event) => {
-		event.preventDefault();
-		event.stopPropagation();
-
-		if (event.code === 'Backspace') {
-			setSound({ ...sound, shortcut: '' });
-			return;
-		}
-
-		let { code, ctrlKey, shiftKey, altKey } = event;
-
-		if (!code) return;
-		if (code.includes('Meta')) return;
-		if (code.startsWith('Key')) {
-			code = code.slice('Key'.length);
-		} else if (code.startsWith('Digit')) {
-			code = code.slice('Digit'.length);
-		}
-
-		if (KeyToCode[code]) {
-			setSound({ ...sound, shortcut: hotkeyToString([code], ctrlKey, shiftKey, altKey) });
 		}
 	};
 
@@ -54,17 +31,19 @@ const Modal = () => {
 		};
 
 		const addSound = () => {
+			const shortcutValue = shortcutReference.current.value;
+
 			if (!sound.key) {
 				toast.error('Name cannot be empty');
 				return;
 			}
-			if (!sound.shortcut) {
+
+			if (!shortcutValue) {
 				toast.error('Shortcut cannot be empty');
 				return;
 			}
 
-			const shortcutExist = sounds.find((s) => s.shortcut === sound.shortcut);
-			if (shortcutExist) {
+			if (soundExists('shortcut', shortcutValue)) {
 				toast.error('That shortcut is already in use');
 				return;
 			}
@@ -74,34 +53,34 @@ const Modal = () => {
 				return;
 			}
 
-			createBuffer(sound);
-			createSound(sound);
-			setSound({ key: '', shortcut: [], route: '' });
+			const newSound = { ...sound, shortcut: shortcutValue };
+			createBuffer(newSound);
+			createSound(newSound);
+			setSound({ key: '', route: '' });
 			toggleModal();
 		};
 
 		return (
 			<>
 				<div className="modal-title">Add a new sound</div>
-				<input type="text" placeholder="Name" onChange={(e) => setSound({ ...sound, key: e.target.value })} />
-				<input
-					type="text"
-					tabIndex="-1"
-					placeholder="Shortcut - Right click or Backspace to clear"
-					id="shortcut-input"
-					readOnly
-					defaultValue={sound.shortcut}
-					onKeyDown={handleKeyPress}
-					onContextMenu={() => setSound({ ...sound, shortcut: '' })}
-				/>
-				<input
-					type="text"
-					tabIndex="-1"
-					placeholder="Select sound"
-					value={sound.route}
-					onClick={selectFile}
-					readOnly
-				/>
+				<div className="modal-input-container">
+					<input
+						className="default-input"
+						type="text"
+						placeholder="Name"
+						onChange={(e) => setSound({ ...sound, key: e.target.value })}
+					/>
+					<InputShortcut ref={shortcutReference} />
+					<input
+						className="default-input"
+						type="text"
+						tabIndex="-1"
+						placeholder="Select sound"
+						value={sound.route}
+						onClick={selectFile}
+						readOnly
+					/>
+				</div>
 				<div className="modal-buttons">
 					<button className="mdl-btn" onClick={addSound}>
 						Add

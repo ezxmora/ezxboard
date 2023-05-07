@@ -1,18 +1,11 @@
+import 'Assets/styles/index.css';
+import TitleBar from 'Components/TitleBar';
+import { SoundPlayer } from 'Contexts/SoundPlayer';
+import { AnimatePresence } from 'framer-motion';
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-
-import 'Assets/styles/index.css';
-import 'Assets/styles/reset.css';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
-
-// Context
-import { SoundPlayer } from 'Contexts/SoundPlayer';
-
-// Component
-import TitleBar from 'Components/TitleBar';
-
-// Views
-import { AnimatePresence } from 'framer-motion';
 import Home from 'Views/Home';
 import Settings from 'Views/Settings';
 
@@ -37,6 +30,7 @@ const Main = () => {
 						<RouterProvider router={router} />
 					</SoundPlayer>
 				</AnimatePresence>
+				<ToastContainer autoClose="2000" theme="dark" position="bottom-left" />
 			</main>
 		</>
 	);

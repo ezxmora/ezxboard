@@ -36,22 +36,15 @@
 	text-align: center;
 	color: var(--main-color);
 	font-size: 4vh;
-	margin-bottom: 5%;
+	margin-bottom: 3.5vh;
 }
 
-.modal-window input[type='text'] {
-	outline: none;
-	border: 1px solid var(--main-color);
-	background: transparent;
-	color: var(--main-color);
-	padding: 2vh;
-	margin-top: 1.5vh;
-	height: 3.5vh;
+.modal-input-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 	width: 100%;
-}
-
-.modal-window input[type='text']:focus {
-	border: 1px solid var(--context-menu-color-hover);
+	gap: 8px 0;
 }
 
 .modal-window .modal-buttons {
