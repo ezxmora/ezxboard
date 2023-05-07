@@ -1,6 +1,6 @@
 {
 	"name": "ezxboard",
-	"version": "1.0.1",
+	"version": "1.1.0",
 	"private": "true",
 	"description": "Customizable and expandable Electron and React soundboard",
 	"main": "src/electron/main.js",
